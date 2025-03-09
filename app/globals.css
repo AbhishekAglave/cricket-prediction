@@ -1,12 +1,17 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
+  /* Light theme background gradient colors */
+  --background-from: #ebf8ff; /* blue-50 */
+  --background-to: #bee3f8; /* blue-100 */
+
+  /* Foreground (text) color for light mode */
   --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: var(--background);
+  --color-background-from: var(--background-from);
+  --color-background-to: var(--background-to);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -14,13 +19,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    /* Dark theme background gradient colors */
+    --background-from: #111827; /* gray-900 */
+    --background-to: #1f2937; /* gray-800 */
+
+    /* Foreground (text) color for dark mode */
     --foreground: #ededed;
   }
 }
 
 body {
-  background: var(--background);
+  /* Apply the gradient as the background */
+  background: linear-gradient(to bottom, var(--background-from), var(--background-to));
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
