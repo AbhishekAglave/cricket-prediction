@@ -15,7 +15,7 @@ const sliderImages = [
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="max-w-4xl mx-auto">
       {/* Image Slider */}
       <ImageSlider images={sliderImages} />
 

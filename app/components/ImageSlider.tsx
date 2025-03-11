@@ -24,7 +24,7 @@ export default function ImageSlider({ images, interval = 4000 }: ImageSliderProp
   }, [images.length, interval]);
 
   return (
-    <div className="relative h-72 sm:h-96 md:h-[500px] overflow-hidden rounded-2xl shadow-2xl my-4 md:my-6">
+    <div className="relative h-72 sm:h-96 md:h-[500px] mb-4 md:mb-6 overflow-hidden rounded-2xl shadow-2xl">
       {images.map((image, index) => (
         <div
           key={index}

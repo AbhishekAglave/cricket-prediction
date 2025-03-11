@@ -12,12 +12,10 @@ export default function AppBar() {
 
   return (
     <header className="py-4 px-6 shadow-md flex items-center justify-between">
-      <div className="flex items-center space-x-4">
-        <Link href="/">
-          <Image src="/images/logo.png" alt="Logo" width={40} height={40} className="rounded-full" />
-        </Link>
+      <Link href="/" className="flex gap-4 items-center">
+        <Image src="/images/logo.png" alt="Logo" width={40} height={40} className="rounded-full" />
         <span className="hidden md:block text-xl font-semibold">Cricket Prediction</span>
-      </div> 
+      </Link>
 
       <nav className="flex space-x-6">
         <Link href="/privacy-policy">Privacy Policy</Link>
