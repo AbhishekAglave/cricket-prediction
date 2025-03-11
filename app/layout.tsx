@@ -15,7 +15,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Cricket Prediction By Expert',
-  description: 'Cricket Prediction By Expert'
+  description: 'Cricket Prediction By Expert',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-32x32.png',
+    apple: '/apple-touch-icon.png'
+  }
 };
 
 export const viewport: Viewport = {

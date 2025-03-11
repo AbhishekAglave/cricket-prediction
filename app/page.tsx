@@ -31,7 +31,7 @@ export default function Home() {
       <div className="flex flex-wrap gap-2 justify-around">
         <ContactCard
           title="WhatsApp"
-          href="https://wa.me/919503773632" // WhatsApp direct link
+          href="https://wa.me/919503773632?text=YOUR_MESSAGE" // WhatsApp direct link
           icon={MessageSquare}
           iconBgColor="bg-green-500"
           hoverBgColor="hover:bg-green-900"
