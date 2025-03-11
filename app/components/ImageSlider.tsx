@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 interface SliderImage {
   src: string;
   alt: string;
-  caption: string;
 }
 
 interface ImageSliderProps {
@@ -42,10 +41,6 @@ export default function ImageSlider({ images, interval = 4000 }: ImageSliderProp
             className="object-cover transition-transform duration-1000 ease-in-out transform scale-105 hover:scale-100"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-
-          <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-black/50 backdrop-blur-sm text-white rounded-lg shadow-lg transition-all duration-500 hover:bg-black/70">
-            <p className="text-lg sm:text-xl md:text-2xl font-semibold text-center">{image.caption}</p>
-          </div>
         </div>
       ))}
 

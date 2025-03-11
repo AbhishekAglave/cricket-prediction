@@ -1,31 +1,12 @@
 @import 'tailwindcss';
 
 :root {
-  /* Light theme background gradient colors */
-  --background-from: #ebf8ff; /* blue-50 */
-  --background-to: #bee3f8; /* blue-100 */
+  /* Dark theme background gradient colors */
+  --background-from: #111827; /* gray-900 */
+  --background-to: #1f2937; /* gray-800 */
 
-  /* Foreground (text) color for light mode */
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background-from: var(--background-from);
-  --color-background-to: var(--background-to);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark theme background gradient colors */
-    --background-from: #111827; /* gray-900 */
-    --background-to: #1f2937; /* gray-800 */
-
-    /* Foreground (text) color for dark mode */
-    --foreground: #ededed;
-  }
+  /* Foreground (text) color for dark mode */
+  --foreground: #ededed;
 }
 
 body {
