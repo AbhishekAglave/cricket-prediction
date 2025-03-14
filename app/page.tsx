@@ -1,6 +1,6 @@
 import ImageSlider from './components/ImageSlider'; // adjust path if needed
 import ContactCard from './components/ContactCard'; // adjust path if needed
-import { Phone, MessageSquare, Instagram, Send } from 'lucide-react';
+import { Phone, MessageCircle, Instagram, Send } from 'lucide-react';
 
 const sliderImages = [
   {
@@ -32,7 +32,7 @@ export default function Home() {
         <ContactCard
           title="WhatsApp"
           href="https://wa.me/919503773632?text=Hi%2C%20I%20need%20a%20prediction" // WhatsApp direct link
-          icon={MessageSquare}
+          icon={MessageCircle}
           iconBgColor="bg-green-500"
           hoverBgColor="hover:bg-green-900"
           className="w-100 md:w-1/4"

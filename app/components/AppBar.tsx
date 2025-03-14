@@ -1,15 +1,8 @@
-'use client';
-
-import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { LogOut } from 'lucide-react';
 
 export default function AppBar() {
-  useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    console.log(prefersDark);
-  }, []);
-
   return (
     <header className="py-4 px-6 shadow-md flex items-center justify-between">
       <Link href="/" className="flex gap-4 items-center">
@@ -20,6 +13,9 @@ export default function AppBar() {
       <nav className="flex space-x-6">
         <Link href="/privacy-policy">Privacy Policy</Link>
         <Link href="/about">About</Link>
+        {/* <Link href="/exit">
+          <LogOut />
+        </Link> */}
       </nav>
     </header>
   );

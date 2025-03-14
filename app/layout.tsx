@@ -37,15 +37,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors duration-300`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased transition-colors duration-300`}
+      >
         {/* App Bar */}
         <AppBar />
 
         {/* Main Content */}
-        <main className="p-4 md:p-6">{children}</main>
+        <main className="p-4 md:p-6 min-h-[calc(100vh-144px)]">{children}</main>
 
         {/* Footer */}
-        <footer className="text-center p-6 mt-8">
+        <footer className="text-center p-6">
           <p>© 2025 Cricket Prediction. All rights reserved.</p>
         </footer>
       </body>
