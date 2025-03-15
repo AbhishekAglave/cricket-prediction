@@ -1,5 +1,5 @@
 import GuestUserCard from '@/app/components/UserListItem'; // Adjust path
-import { fetchGuestUsers } from '@/app/lib/actions'; // Server-side fetching
+import { fetchGuestUsers } from '@/app/lib/actions/users'; // Server-side fetching
 import { IUserLean, IUserDocument } from '@/app/lib/definitions';
 export default async function GuestUsersPage(props: {
   searchParams?: Promise<{

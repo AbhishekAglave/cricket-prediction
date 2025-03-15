@@ -1,24 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { verifyUserToken } from './app/lib/actions/auth';
 
-// Only protect `/home` and `/dashboard`
-const protectedRoutes = ['/'];
+const unprotectedRoutes = ['/welcome', '/admin/login', '/privacy-policy', '/about'];
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
-  // If it's not a protected route, skip the middleware
-  if (!protectedRoutes.includes(path)) {
+  if (unprotectedRoutes.includes(path)) {
     return NextResponse.next();
   }
 
   const cookieStore = await cookies();
-  const userInfo = cookieStore.get('userInfo');
+  const token = cookieStore.get('token');
 
-  // If userInfo cookie doesn't exist, redirect to /entry
-  if (!userInfo) {
+  // If no token, redirect to welcome page
+  if (!token) {
     return NextResponse.redirect(new URL('/welcome', req.url));
   }
 
+  // Verify token and extract user payload
+  const userPayload = await verifyUserToken(token?.value);
+
+  if (!userPayload) {
+    return NextResponse.redirect(new URL('/welcome', req.url));
+  }
+
+  // ✅ Check for admin routes and roles
+  if (path.startsWith('/admin')) {
+    if (userPayload.role !== 'admin') {
+      return NextResponse.redirect(new URL('/admin/login', req.url));
+    }
+  }
+
+  // If everything is fine, continue the request
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)']
+};
