@@ -5,17 +5,15 @@ export default async function GuestUsersPage(props: {
   searchParams?: Promise<{
     query?: string;
     page?: string;
-    sh: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  const password = searchParams?.sh || '';
 
   let users: IUserLean[] = [];
   try {
-    users = await fetchGuestUsers(query, currentPage, password);
+    users = await fetchGuestUsers(query, currentPage);
   } catch (error) {
     console.log(error);
   }

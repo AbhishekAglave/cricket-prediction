@@ -52,11 +52,9 @@ export async function loginAsGuest(formData: FormData) {
 }
 
 // ✅ fetchGuestUsers
-export async function fetchGuestUsers(query: string = '', currentPage: number, password: string): Promise<IUserLean[]> {
+export async function fetchGuestUsers(query: string = '', currentPage: number): Promise<IUserLean[]> {
   const skip = (currentPage - 1) * ITEMS_PER_PAGE;
-  if (!password || password !== process.env.PSWD) {
-    throw new Error('Unauthorized User');
-  }
+
   try {
     await connectDB();
 
