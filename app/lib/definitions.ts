@@ -20,3 +20,28 @@ export interface IUserLean {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export type TLoginFormState = {
+  success: boolean;
+  message: string | null;
+  error: string | null;
+};
+
+export type TCreateAdminUserState = {
+  success: boolean;
+  message: string | null;
+  errors: Partial<{
+    name: string;
+    mobile: string;
+    username: string;
+    password: string;
+    general: string;
+  }>;
+  values: {
+    name: string;
+    mobile: string;
+    username: string;
+    password: string;
+    updateOnConflict: boolean;
+  };
+};

@@ -6,21 +6,25 @@ import connectDB from '../mongoose';
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import { SignJWT } from 'jose';
-import { IUserDocument, IUserLean } from '@/app/lib/definitions';
+import { IUserDocument, IUserLean, TCreateAdminUserState, TLoginFormState } from '@/app/lib/definitions';
 
 const ITEMS_PER_PAGE = 10;
 const JWT_SECRET = process.env.JWT_SECRET!;
 const ENCODER = new TextEncoder();
 
-// Guest Login (Already present)
-export async function loginAsGuest(formData: FormData) {
+export async function loginAsGuest(prevState: TLoginFormState, formData: FormData): Promise<TLoginFormState> {
   const cookieStore = await cookies();
 
   const name = formData.get('name')?.toString();
   const mobile = formData.get('mobile')?.toString();
+  const callbackUrl = formData.get('callbackUrl')?.toString() || '/';
 
   if (!name || !mobile) {
-    throw new Error('Both fields are required');
+    return {
+      success: false,
+      message: null,
+      error: 'Name and Mobile Number required'
+    };
   }
 
   try {
@@ -58,24 +62,263 @@ export async function loginAsGuest(formData: FormData) {
         maxAge: 60 * 60 * 24
       });
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
-    throw new Error('Login failed');
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: null,
+        error: error.message
+      };
+    } else {
+      return {
+        success: false,
+        message: null,
+        error: 'Something went wrong!'
+      };
+    }
   }
-
-  redirect('/');
+  redirect(callbackUrl);
 }
 
-export async function fetchGuestUsers(query: string = '', currentPage: number): Promise<IUserLean[]> {
+export async function createAdminUser(
+  prevState: TCreateAdminUserState,
+  formData: FormData
+): Promise<TCreateAdminUserState> {
+  const name = formData.get('name')?.toString();
+  const mobile = formData.get('mobile')?.toString();
+  const username = formData.get('username')?.toString();
+  const password = formData.get('password')?.toString();
+  const updateOnConflict = formData.get('updateOnConflict') === 'on'; // Checkbox returns 'on' if checked
+
+  const newErrors: TCreateAdminUserState['errors'] = {};
+
+  // Validation
+  if (!name) {
+    newErrors.name = 'Name is required';
+  }
+
+  if (!mobile) {
+    newErrors.mobile = 'Mobile number is required';
+  }
+
+  if (!username) {
+    newErrors.username = 'Username is required';
+  }
+
+  if (!password) {
+    newErrors.password = 'Password is required';
+  }
+
+  const hasErrors = Object.keys(newErrors).length > 0;
+
+  if (hasErrors) {
+    return {
+      success: false,
+      message: null,
+      errors: newErrors,
+      values: {
+        name: name!,
+        mobile: mobile!,
+        username: username!,
+        password: password!,
+        updateOnConflict
+      }
+    };
+  }
+
+  try {
+    await connectDB();
+
+    const existingMobileUser = await User.findOne({ mobile });
+    const existingUsernameUser = await User.findOne({ username });
+
+    // If user exists with same mobile number
+    if (existingMobileUser) {
+      if (updateOnConflict) {
+        // Update the existing user
+        const hashedPassword = await bcrypt.hash(password!, 10);
+
+        existingMobileUser.name = name!;
+        existingMobileUser.username = username!;
+        existingMobileUser.password = hashedPassword;
+        existingMobileUser.role = 'admin';
+
+        await existingMobileUser.save();
+
+        return {
+          success: true,
+          message: 'User updated successfully!',
+          errors: {},
+          values: {
+            name: '',
+            mobile: '',
+            username: '',
+            password: '',
+            updateOnConflict: false
+          }
+        };
+      } else {
+        return {
+          success: false,
+          message: null,
+          errors: { mobile: 'Mobile number is already used' },
+          values: {
+            name: name!,
+            mobile: mobile!,
+            username: username!,
+            password: password!,
+            updateOnConflict
+          }
+        };
+      }
+    }
+
+    // If another user exists with the same username
+    if (existingUsernameUser) {
+      return {
+        success: false,
+        message: null,
+        errors: { username: 'Username already exists' },
+        values: {
+          name: name!,
+          mobile: mobile!,
+          username: username!,
+          password: password!,
+          updateOnConflict
+        }
+      };
+    }
+
+    // No conflicts, create a new user
+    const hashedPassword = await bcrypt.hash(password!, 10);
+
+    await User.create({
+      name,
+      mobile,
+      username,
+      password: hashedPassword,
+      role: 'admin'
+    });
+
+    return {
+      success: true,
+      message: 'User created successfully!',
+      errors: {},
+      values: {
+        name: '',
+        mobile: '',
+        username: '',
+        password: '',
+        updateOnConflict: false
+      }
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: null,
+      errors: {
+        general: error instanceof Error ? error.message : 'Something went wrong!'
+      },
+      values: {
+        name: name!,
+        mobile: mobile!,
+        username: username!,
+        password: password!,
+        updateOnConflict
+      }
+    };
+  }
+}
+
+export async function loginAsAdmin(prevState: TLoginFormState, formData: FormData): Promise<TLoginFormState> {
+  const cookieStore = await cookies();
+
+  const username = formData.get('username')?.toString();
+  const password = formData.get('password')?.toString();
+  const callbackUrl = formData.get('callbackUrl')?.toString() || '/admin';
+
+  if (!username || !password) {
+    return {
+      success: false,
+      message: null,
+      error: 'Username and Password is required'
+    };
+  }
+
+  try {
+    await connectDB();
+
+    const adminUser: IUserDocument | null = await User.findOne({ username, role: 'admin' });
+
+    if (!adminUser) {
+      return {
+        success: false,
+        message: null,
+        error: 'Invalid Credentials!'
+      };
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, adminUser.password!);
+    if (!isPasswordValid) {
+      return {
+        success: false,
+        message: null,
+        error: 'Invalid Credentials!'
+      };
+    }
+
+    const payload = {
+      _id: adminUser._id.toString(),
+      name: adminUser.name,
+      username: adminUser.username,
+      mobile: adminUser.mobile,
+      role: adminUser.role
+    };
+
+    const token = await new SignJWT(payload)
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuedAt()
+      .setExpirationTime('1d')
+      .sign(ENCODER.encode(JWT_SECRET));
+
+    cookieStore.set('token', token, {
+      path: '/',
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24
+    });
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: null,
+        error: error.message
+      };
+    } else {
+      return {
+        success: false,
+        message: null,
+        error: 'Something went wrong!'
+      };
+    }
+  }
+  redirect(callbackUrl);
+}
+
+export async function fetchUsers(query: string = '', currentPage: number): Promise<IUserLean[]> {
   const skip = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
     await connectDB();
 
     const filter = {
-      role: 'guest',
       $or: [
         { name: { $regex: query, $options: 'i' } },
+        { role: { $regex: query, $options: 'i' } },
         { mobile: { $regex: query, $options: 'i' } },
         { username: { $regex: query, $options: 'i' } }
       ]
@@ -105,14 +348,14 @@ export async function fetchGuestUsers(query: string = '', currentPage: number): 
   }
 }
 
-export async function fetchGuestUsersPages(query: string = ''): Promise<number> {
+export async function fetchUsersPages(query: string = ''): Promise<number> {
   try {
     await connectDB();
 
     const filter = {
-      role: 'guest',
       $or: [
         { name: { $regex: query, $options: 'i' } },
+        { role: { $regex: query, $options: 'i' } },
         { mobile: { $regex: query, $options: 'i' } },
         { username: { $regex: query, $options: 'i' } }
       ]
@@ -125,97 +368,4 @@ export async function fetchGuestUsersPages(query: string = ''): Promise<number> 
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of guest users.');
   }
-}
-
-////////////////////
-// ✅ Create Admin User
-////////////////////
-
-export async function createAdminUser(formData: FormData) {
-  const name = formData.get('name')?.toString();
-  const mobile = formData.get('mobile')?.toString();
-  const username = formData.get('username')?.toString();
-  const password = formData.get('password')?.toString();
-
-  if (!name || !mobile || !username || !password) {
-    throw new Error('All fields are required to create an admin user');
-  }
-
-  try {
-    await connectDB();
-
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      throw new Error('Username already exists');
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const adminUser = await User.create({
-      name,
-      mobile,
-      username,
-      password: hashedPassword,
-      role: 'admin'
-    });
-  } catch (error) {
-    console.error(error);
-    throw new Error('Failed to create admin user');
-  }
-}
-
-////////////////////
-// ✅ Login as Admin
-////////////////////
-
-export async function loginAsAdmin(formData: FormData) {
-  const cookieStore = await cookies();
-
-  const username = formData.get('username')?.toString();
-  const password = formData.get('password')?.toString();
-
-  if (!username || !password) {
-    throw new Error('Username and password are required');
-  }
-
-  try {
-    await connectDB();
-
-    const adminUser: IUserDocument | null = await User.findOne({ username, role: 'admin' });
-
-    if (!adminUser) {
-      throw new Error('Invalid credentials');
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, adminUser.password || '');
-    if (!isPasswordValid) {
-      throw new Error('Invalid credentials');
-    }
-
-    const payload = {
-      _id: adminUser._id.toString(),
-      name: adminUser.name,
-      username: adminUser.username,
-      mobile: adminUser.mobile,
-      role: adminUser.role
-    };
-
-    const token = await new SignJWT(payload)
-      .setProtectedHeader({ alg: 'HS256' })
-      .setIssuedAt()
-      .setExpirationTime('1d')
-      .sign(ENCODER.encode(JWT_SECRET));
-
-    cookieStore.set('token', token, {
-      path: '/',
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24
-    });
-  } catch (error) {
-    console.error(error);
-    throw new Error('Admin login failed');
-  }
-  redirect('/admin');
 }

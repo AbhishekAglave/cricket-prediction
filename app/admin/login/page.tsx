@@ -1,7 +1,23 @@
+'use client';
+
 import { loginAsAdmin } from '@/app/lib/actions/users';
+import { TLoginFormState } from '@/app/lib/definitions';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useActionState } from 'react';
 
 export default function Page() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/admin';
+
+  const initialFormState: TLoginFormState = {
+    success: false,
+    message: null,
+    error: null
+  };
+
+  const [formState, formAction, isPending] = useActionState(loginAsAdmin, initialFormState);
+
   return (
     <div className="flex items-center justify-center">
       <div className="p-4 rounded-2xl shadow-2xl w-full max-w-md text-center">
@@ -10,7 +26,7 @@ export default function Page() {
           Welcome Back
         </h2>
         {/* Form submission handled server-side */}
-        <form action={loginAsAdmin} className="space-y-5">
+        <form action={formAction} className="space-y-5">
           {/* Username Field */}
           <div>
             <input
@@ -33,15 +49,18 @@ export default function Page() {
             />
           </div>
 
+          <input type="hidden" name="callbackUrl" value={callbackUrl} />
+
           {/* You can conditionally show error messages here */}
-          {false && <div className="text-red-500 text-sm">{'Invalid username or password'}</div>}
+          {formState.error && <div className="text-red-500 text-sm">{formState.error}</div>}
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300"
+            disabled={isPending}
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login as Admin
+            {isPending ? 'Signing you in...' : 'Login as Admin'}
           </button>
         </form>
 

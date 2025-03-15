@@ -3,14 +3,9 @@
 import { useState } from 'react';
 import { Phone, MessageCircle, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
+import { IUserLean } from '../lib/definitions';
 
-type User = {
-  _id: string;
-  name: string;
-  mobile: string;
-};
-
-export default function GuestUserCard({ user }: { user: User }) {
+export default function UserListItem({ user }: { user: IUserLean }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -63,8 +58,10 @@ export default function GuestUserCard({ user }: { user: User }) {
 
       {/* User Info */}
       <div className="flex flex-col flex-1">
-        <h3 className="text-lg font-semibold text-gray-200">{user.name}</h3>
-
+        <div className="flex gap-2">
+          <h3 className="text-lg font-semibold text-gray-200">{user.name}</h3>
+          <p className="text-gray-500">({user.role})</p>
+        </div>
         <div className="flex items-center gap-6 mt-1">
           <p className="text-gray-400">{user.mobile}</p>
 

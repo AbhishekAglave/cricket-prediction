@@ -1,8 +1,24 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { loginAsGuest } from '@/app/lib/actions/users';
+import { useActionState } from 'react';
+import { TLoginFormState } from '../lib/definitions';
+import { useSearchParams } from 'next/navigation';
 
 export default function Page() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
+
+  const initialFormState: TLoginFormState = {
+    success: false,
+    message: null,
+    error: null
+  };
+
+  const [formState, formAction, isPending] = useActionState(loginAsGuest, initialFormState);
+
   return (
     <div className="flex items-center justify-center">
       <div className="p-4 rounded-2xl shadow-2xl w-full max-w-md text-center">
@@ -28,7 +44,7 @@ export default function Page() {
         <p className="mb-4 text-sm text-orange-500 transition-colors duration-300">Enter your details to continue</p>
 
         {/* Form submission handled server-side */}
-        <form action={loginAsGuest} className="space-y-5">
+        <form action={formAction} className="space-y-5">
           <div>
             <input
               type="text"
@@ -52,15 +68,19 @@ export default function Page() {
             />
           </div>
 
+          <input type="hidden" name="callbackUrl" value={callbackUrl} />
+
           {/* Optional error message */}
-          {false && <div className="text-red-500 text-sm">{'error'}</div>}
+          {formState.error && <div className="text-red-500 text-sm">{formState.error}</div>}
 
           {/* Button with red to orange gradient */}
+
           <button
             type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300"
+            disabled={isPending}
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Enter as Guest
+            {isPending ? 'Letting you in...' : 'Enter as Guest'}
           </button>
         </form>
 

@@ -2,38 +2,42 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { verifyUserToken } from './app/lib/actions/auth';
 
+function createCallbackUrl(req: NextRequest): string {
+  return encodeURIComponent(req.nextUrl.pathname + req.nextUrl.search);
+}
+
 const unprotectedRoutes = ['/welcome', '/admin/login', '/privacy-policy', '/about'];
 
 export async function middleware(req: NextRequest) {
-  const path = req.nextUrl.pathname;
-
-  if (unprotectedRoutes.includes(path)) {
+  if (unprotectedRoutes.includes(req.nextUrl.pathname)) {
     return NextResponse.next();
   }
 
   const cookieStore = await cookies();
   const token = cookieStore.get('token');
 
-  // If no token, redirect to welcome page
   if (!token) {
-    return NextResponse.redirect(new URL('/welcome', req.url));
+    const callbackUrl = createCallbackUrl(req);
+    const redirectTo = req.nextUrl.pathname.startsWith('/admin')
+      ? `/admin/login?callbackUrl=${callbackUrl}`
+      : `/welcome?callbackUrl=${callbackUrl}`;
+    return NextResponse.redirect(new URL(redirectTo, req.url));
   }
 
-  // Verify token and extract user payload
   const userPayload = await verifyUserToken(token?.value);
 
   if (!userPayload) {
-    return NextResponse.redirect(new URL('/welcome', req.url));
+    const callbackUrl = createCallbackUrl(req);
+    return NextResponse.redirect(new URL(`/welcome?callbackUrl=${callbackUrl}`, req.url));
   }
 
-  // ✅ Check for admin routes and roles
-  if (path.startsWith('/admin')) {
+  if (req.nextUrl.pathname.startsWith('/admin')) {
     if (userPayload.role !== 'admin') {
-      return NextResponse.redirect(new URL('/admin/login', req.url));
+      const callbackUrl = createCallbackUrl(req);
+      return NextResponse.redirect(new URL(`/admin/login?callbackUrl=${callbackUrl}`, req.url));
     }
   }
 
-  // If everything is fine, continue the request
   return NextResponse.next();
 }
 
