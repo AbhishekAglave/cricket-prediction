@@ -2,7 +2,6 @@ import Pagination from '@/app/components/Pagination';
 import UserListSkeleton from '../../components/UserListSkeleton';
 import { Suspense } from 'react';
 import { fetchUsersPages } from '@/app/lib/actions/users';
-import Link from 'next/link';
 import Search from '@/app/components/Search';
 import UserList from '@/app/components/UserList';
 import Modal from '@/app/components/Modal';

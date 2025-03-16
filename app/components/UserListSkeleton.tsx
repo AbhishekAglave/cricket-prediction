@@ -12,7 +12,6 @@ export default async function UserListSkeleton() {
         <UserListItemSkeleton />
         <UserListItemSkeleton />
         <UserListItemSkeleton />
-        <UserListItemSkeleton />
       </div>
     </div>
   );
