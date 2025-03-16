@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import AppBar from './components/AppBar';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,10 +21,9 @@ export const metadata: Metadata = {
     shortcut: '/favicon-32x32.png',
     apple: '/apple-touch-icon.png'
   },
-  description: "Expert insights for match predictions and betting strategies. Get today's match predictions on the go.",
-
+  description: "Get today's match predictions on the go. Expert insights for match predictions and betting strategies.",
   keywords:
-    'cricket prediction, cricket guessing, IPL match prediction, today match prediction, expert cricket tips, cricket betting tips, IPL betting strategy, cricket analysis, match winner prediction, cricket toss prediction, live cricket updates, fantasy cricket tips, IPL fantasy prediction, Indian team prediction, T20 prediction, cricket expert advice, dream11 team prediction, cricket score prediction, cricket match analysis, cricket astrology prediction, IPL expert opinion, free cricket prediction tips, accurate cricket guessing tips, IPL cricket guessing guru, today IPL match prediction, who will win today match, free toss prediction today, 100% sure cricket prediction, best cricket betting tips, free fantasy cricket team'
+    'cricket prediction, cricket guessing, IPL match prediction, today match prediction, expert cricket tips, cricket betting tips, IPL betting strategy, cricket analysis, match winner prediction, cricket toss prediction, live cricket updates, fantasy cricket tips, IPL fantasy prediction, Indian team prediction, T20 prediction, cricket expert advice, cricket score prediction, cricket match analysis, cricket astrology prediction, IPL expert opinion, free cricket prediction tips, accurate cricket guessing tips, IPL cricket guessing guru, today IPL match prediction, who will win today match, free toss prediction today, 100% sure cricket prediction, best cricket betting tips, free fantasy cricket team'
 };
 
 export const viewport: Viewport = {
@@ -40,6 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="GTM-MPJ6JFP8" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased transition-colors duration-300`}
       >
