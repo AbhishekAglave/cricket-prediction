@@ -24,7 +24,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
   return (
     <div className="w-full md:w-auto flex items-center gap-2 py-2 px-4 rounded-xl border border-gray-300 focus-within:ring-2 focus-within:ring-red-400">
-      <MagnifyingGlassIcon fontSize={18} className="h-[24px] w-[24px]" />
+      <MagnifyingGlassIcon className="h-[24px] w-[24px]" />
       <input
         className="w-full bg-transparent focus:outline-none"
         placeholder={placeholder}
