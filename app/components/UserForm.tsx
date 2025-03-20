@@ -24,9 +24,7 @@ export default function UserForm() {
     <div className="flex items-center justify-center px-4">
       <div className="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md text-center">
         {/* Heading with red to orange gradient */}
-        <h2 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 mb-6">
-          Create Admin User
-        </h2>
+        <h2 className="text-2xl font-extrabold gradient-text mb-6">Create Admin User</h2>
         {/* Form submission handled server-side */}
         <form action={formAction} className="space-y-5">
           {/* Name */}
@@ -102,11 +100,7 @@ export default function UserForm() {
           {formState.message && <div className="text-green-500 text-sm">{formState.message}</div>}
 
           {/* Submit button */}
-          <button
-            type="submit"
-            disabled={isPending}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <button type="submit" disabled={isPending} className="w-full py-3 rounded-xl gradient-button">
             Submit
           </button>
         </form>

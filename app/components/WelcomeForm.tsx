@@ -49,11 +49,7 @@ export default function WelcomeForm() {
 
       {/* Button with red to orange gradient */}
 
-      <button
-        type="submit"
-        disabled={isPending}
-        className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
+      <button type="submit" disabled={isPending} className="w-full py-3 rounded-xl gradient-button">
         {isPending ? 'Letting you in...' : 'Enter as Guest'}
       </button>
     </form>

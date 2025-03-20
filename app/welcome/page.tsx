@@ -21,9 +21,7 @@ export default function Page() {
         <h1 className="text-2xl font-bold mb-1">Welcome to</h1>
 
         {/* Heading with red to orange gradient */}
-        <h2 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 mb-4">
-          Cricket Match Predictions
-        </h2>
+        <h2 className="text-2xl font-extrabold gradient-text mb-4">Cricket Match Predictions</h2>
 
         <p className="mb-4 text-xl">Get today's cricket updates, join us now!</p>
         <p className="mb-4 text-sm text-orange-500 transition-colors duration-300">Enter your details to continue</p>

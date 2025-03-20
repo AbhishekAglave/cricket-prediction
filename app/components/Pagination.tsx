@@ -69,9 +69,8 @@ function PaginationNumber({
   const className = clsx('flex h-10 w-10 items-center justify-center text-sm border', {
     'rounded-l-md': position === 'first' || position === 'single',
     'rounded-r-md': position === 'last' || position === 'single',
-    'z-10 bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 transition-all duration-300':
-      isActive,
-    'hover:bg-gray-100': !isActive && position !== 'middle',
+    'z-10 gradient-background': isActive,
+    'hover:bg-transparent-100': !isActive && position !== 'middle',
     'text-gray-300': position === 'middle'
   });
 
@@ -95,7 +94,7 @@ function PaginationArrow({
 }) {
   const className = clsx('flex h-10 w-10 items-center justify-center rounded-md border', {
     'pointer-events-none text-gray-300': isDisabled,
-    'hover:bg-gray-100': !isDisabled,
+    'hover:bg-transparent-100': !isDisabled,
     'mr-2 md:mr-4': direction === 'left',
     'ml-2 md:ml-4': direction === 'right'
   });

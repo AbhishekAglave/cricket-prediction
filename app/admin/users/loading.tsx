@@ -10,10 +10,10 @@ export default function Loading() {
 
         <div className="w-full flex items-center gap-2 justify-between md:justify-end">
           {/* Search bar skeleton */}
-          <div className="h-10 w-1/2 md:w-64 bg-gray-800 rounded-xl"></div>
+          <div className="w-full md:w-auto h-10 bg-gray-800 rounded-xl"></div>
 
           {/* Create button skeleton */}
-          <div className="h-10 w-32 bg-gray-800 rounded-xl"></div>
+          <div className="h-10 w-42 bg-gray-800 rounded-xl"></div>
         </div>
       </div>
 

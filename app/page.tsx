@@ -6,10 +6,6 @@ const sliderImages = [
   {
     src: '/images/slider/ipl.avif',
     alt: 'IPL Cricket Match'
-  },
-  {
-    src: '/images/slider/ipl.avif',
-    alt: 'IPL Cricket Match'
   }
 ];
 
@@ -21,7 +17,7 @@ export default function Home() {
 
       {/* Main content */}
       <div className="text-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">
+        <h1 className="text-2xl font-bold mb-4 gradient-text">
           Cricket Match Insights, Winning Possibilities and Toss Winner Guessing
         </h1>
         <p className="text-xl">
@@ -31,10 +27,7 @@ export default function Home() {
       </div>
 
       <div className="flex justify-center">
-        <Link
-          href={'/contact-us'}
-          className="mb-4 py-2 px-4 text-nowrap inline-flex items-center rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300"
-        >
+        <Link href={'/contact-us'} className="mb-4 py-2 px-4 gradient-button">
           <span>Connect With Us</span>
           <span className="ml-1 animate-wiggle-horizontal">
             <ChevronRightIcon className="h-[24px] w-[24px]" />
@@ -66,10 +59,7 @@ export default function Home() {
       {/* Get in Touch */}
       <h3 className="text-2xl md:text-3xl font-semibold text-center mb-4">Get in touch</h3>
       <div className="flex justify-center">
-        <Link
-          href={'/contact-us'}
-          className="mb-4 py-2 px-4 text-nowrap inline-flex items-center rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300"
-        >
+        <Link href={'/contact-us'} className="mb-4 py-2 px-4 gradient-button">
           <span>Connect With Us</span>
           <span className="ml-1 animate-wiggle-horizontal">
             <ChevronRightIcon className="h-[24px] w-[24px]" />

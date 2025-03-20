@@ -21,9 +21,7 @@ export default async function Page(props: {
   return (
     <div>
       <div className="flex items-center gap-2 justify-between mb-6">
-        <h2 className="hidden md:block text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-          Users
-        </h2>
+        <h2 className="hidden md:block text-2xl font-extrabold gradient-text">Users</h2>
         <div className="w-full flex items-center gap-2 justify-between md:justify-end">
           <Search placeholder="Search user" />
           <Modal btnText="Create User">

@@ -4,7 +4,7 @@ import React from 'react';
 const AboutPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6">About Us</h1>
+      <h1 className="text-4xl font-bold mb-6 gradient-text">About Us</h1>
 
       <p className="mb-4">
         Welcome to our IPL Match Insights platform! We specialize in providing thoughtful guesses and possibilities for

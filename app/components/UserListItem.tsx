@@ -52,7 +52,7 @@ export default function UserListItem({ user }: { user: IUserLean }) {
       className="bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 p-5 flex items-center gap-4"
     >
       {/* Avatar */}
-      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full flex items-center justify-center text-lg font-bold">
+      <div className="flex-shrink-0 w-12 h-12 gradient-button rounded-full flex items-center justify-center text-lg font-bold">
         {user.name?.charAt(0).toUpperCase()}
       </div>
 

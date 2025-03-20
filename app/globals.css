@@ -21,6 +21,40 @@ body {
   color: rgb(0, 140, 255);
 }
 
+.gradient-text {
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text; /* For Safari */
+  background-image: linear-gradient(to right, #ef4444, #f97316);
+}
+
+.gradient-button {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+
+  background-image: linear-gradient(to right, #ef4444, #f97316);
+
+  font-weight: 600;
+  font-size: 1.125rem;
+
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  background-image: linear-gradient(to right, #dc2626, #ea580c);
+}
+.gradient-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gradient-background {
+  background-image: linear-gradient(to right, #ef4444, #f97316);
+}
+
 @keyframes wiggle-horizontal {
   0%,
   100% {

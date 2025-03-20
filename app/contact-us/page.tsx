@@ -6,10 +6,6 @@ const sliderImages = [
   {
     src: '/images/slider/ipl.avif',
     alt: 'IPL Cricket Match'
-  },
-  {
-    src: '/images/slider/ipl.avif',
-    alt: 'IPL Cricket Match'
   }
 ];
 
@@ -28,7 +24,7 @@ const ContactUs = () => {
         </p>
       </div>
 
-      <p className="text-center mb-8 text-lg">
+      <p className="text-center mb-8 text-lg gradient-text">
         Reach out to us through any of the platforms below and we’ll get back to you as soon as possible.
       </p>
 

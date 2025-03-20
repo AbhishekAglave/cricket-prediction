@@ -4,7 +4,7 @@ import React from 'react';
 const PrivacyPolicyPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6">Privacy Policy</h1>
+      <h1 className="text-4xl font-bold mb-6 gradient-text">Privacy Policy</h1>
 
       <p className="mb-4">
         Welcome to our IPL Match Insights platform! We value your privacy and are committed to protecting any

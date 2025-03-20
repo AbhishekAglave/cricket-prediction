@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';// Importing as it is
+import { useState } from 'react'; // Importing as it is
 import { XCircleIcon } from '@heroicons/react/24/solid';
 
 export default function Modal({ children, btnText }: { children: React.ReactNode; btnText: string }) {
@@ -11,10 +11,7 @@ export default function Modal({ children, btnText }: { children: React.ReactNode
 
   return (
     <>
-      <button
-        onClick={openModal}
-        className="py-2 px-4 text-nowrap flex items-center rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold text-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300"
-      >
+      <button onClick={openModal} className="py-2 px-4 gradient-button">
         {btnText}
       </button>
 
