@@ -6,6 +6,10 @@ const sliderImages = [
   {
     src: '/images/slider/ipl.avif',
     alt: 'IPL Cricket Match'
+  },
+  {
+    src: '/images/slider/ipl.avif',
+    alt: 'IPL Cricket Match'
   }
 ];
 
