@@ -6,7 +6,7 @@ function createCallbackUrl(req: NextRequest): string {
   return encodeURIComponent(req.nextUrl.pathname + req.nextUrl.search);
 }
 
-const unprotectedRoutes = ['/welcome', '/admin/login', '/privacy-policy', '/about'];
+const unprotectedRoutes = ['/', '/logout', '/welcome', '/admin/login', '/privacy-policy', '/about'];
 
 export async function middleware(req: NextRequest) {
   if (unprotectedRoutes.includes(req.nextUrl.pathname)) {

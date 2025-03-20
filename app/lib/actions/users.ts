@@ -7,6 +7,7 @@ import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import { SignJWT } from 'jose';
 import { IUserDocument, IUserLean, TCreateAdminUserState, TLoginFormState } from '@/app/lib/definitions';
+import { revalidatePath } from 'next/cache';
 
 const ITEMS_PER_PAGE = 10;
 const JWT_SECRET = process.env.JWT_SECRET!;
@@ -307,6 +308,13 @@ export async function loginAsAdmin(prevState: TLoginFormState, formData: FormDat
     }
   }
   redirect(callbackUrl);
+}
+
+export async function logout() {
+  const cookieStore = await cookies();
+  cookieStore.delete('token');
+  revalidatePath('/');
+  redirect('/');
 }
 
 export async function fetchUsers(query: string = '', currentPage: number): Promise<IUserLean[]> {

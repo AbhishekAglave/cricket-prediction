@@ -16,3 +16,21 @@ body {
 
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
+.link {
+  color: rgb(0, 140, 255);
+}
+
+@keyframes wiggle-horizontal {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px); /* move it right */
+  }
+}
+
+.animate-wiggle-horizontal {
+  animation: wiggle-horizontal 1s ease-in-out infinite;
+}

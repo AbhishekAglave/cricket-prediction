@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const AboutPage = () => {
@@ -6,46 +7,57 @@ const AboutPage = () => {
       <h1 className="text-4xl font-bold mb-6">About Us</h1>
 
       <p className="mb-4">
-        Welcome to our Cricket Live Prediction platform! We provide accurate and timely predictions for all major T20
-        cricket leagues including the IPL, PSL, BBL, and more.
+        Welcome to our IPL Match Insights platform! We specialize in providing thoughtful guesses and possibilities for
+        all IPL matches. Our focus is on sharing valuable insights to enhance your excitement and engagement with the
+        Indian Premier League.
       </p>
 
       <h2 className="text-2xl font-semibold mb-2">What We Offer</h2>
       <p className="mb-4">
-        Our platform delivers toss predictions, session updates, and match winner predictions 🏆 before the start of
-        each game. We aim to give cricket fans valuable insights and help them enjoy the excitement of T20 cricket with
-        our free predictions.
+        We offer toss outcome possibilities, winning chances, and match result guessing for every IPL game. Our insights
+        are based on team performances, player form, and match conditions to help fans explore the possibilities before
+        the action begins.
       </p>
 
       <h2 className="text-2xl font-semibold mb-2">Our Mission</h2>
       <p className="mb-4">
-        Our mission is to provide free and reliable match predictions to cricket enthusiasts around the world. We do not
-        charge for our services and never ask users for any kind of payment.
+        Our mission is to provide free and reliable IPL match insights to cricket lovers around the world. We aim to
+        make IPL matches more exciting by sharing our guesses and discussions—completely free of cost and without any
+        registration.
       </p>
 
       <h2 className="text-2xl font-semibold mb-2">No Real Money Involvement</h2>
       <p className="mb-4">
-        We do not support or promote any real money betting or gambling. Our predictions are strictly for informational
-        and entertainment purposes. We care about the safety and privacy of our users and provide a responsible
-        experience.
+        We do not support or promote any form of real money betting or gambling. All our IPL insights and guesses are
+        shared purely for informational and entertainment purposes. We prioritize responsible use and fan enjoyment.
       </p>
 
       <h2 className="text-2xl font-semibold mb-2">User Privacy</h2>
       <p className="mb-4">
-        We respect your privacy. You can browse and use our services without sharing any personal information. We do not
-        collect or store user data.
+        Your privacy is important to us. You can explore our IPL match insights and content without sharing any personal
+        information. We do not collect or store any user data.
       </p>
 
       <h2 className="text-2xl font-semibold mb-2">Why Choose Us?</h2>
       <ul className="list-disc list-inside mb-4 space-y-2">
-        <li>Free predictions for all T20 matches</li>
-        <li>Toss, session, and match winner updates</li>
+        <li>Free IPL toss guessing and match outcome discussions</li>
+        <li>Winning possibilities based on team analysis and conditions</li>
         <li>No registration or payment required</li>
-        <li>User privacy and safety are our top priorities</li>
+        <li>We respect your privacy and ensure a safe experience</li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mb-2">Contact Us</h2>
-      <p className="mb-4">Have any questions or feedback? Feel free to reach out to us anytime!</p>
+      <h2 className="text-2xl font-semibold mb-2">
+        <Link href="/contact-us" className="link">
+          Contact Us
+        </Link>
+      </h2>
+      <p className="mb-4">
+        Have questions, suggestions, or feedback about our IPL insights? Feel free to{' '}
+        <Link href="/contact-us" className="link font-bold">
+          reach out to us
+        </Link>{' '}
+        anytime!
+      </p>
     </div>
   );
 };
