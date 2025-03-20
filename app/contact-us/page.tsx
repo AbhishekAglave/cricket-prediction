@@ -1,9 +1,37 @@
 import ContactCard from '../components/ContactCard'; // adjust path if needed
 import { Phone, MessageCircle, Instagram, Send } from 'lucide-react';
+import ImageSlider from '../components/ImageSlider';
+
+const sliderImages = [
+  {
+    src: '/images/slider/ipl.avif',
+    alt: 'IPL Cricket Match'
+  },
+  {
+    src: '/images/slider/ipl.avif',
+    alt: 'IPL Cricket Match'
+  }
+];
 
 const ContactUs = () => {
   return (
-    <>
+    <div className="max-w-4xl mx-auto">
+      <ImageSlider images={sliderImages} />
+      {/* Main content */}
+      <div className="text-center mb-4">
+        <h1 className="text-2xl font-bold mb-4">
+          Cricket Match Insights, Winning Possibilities and Toss Winner Guessing
+        </h1>
+        <p className="text-xl">
+          Stay ahead with expert analysis, toss guessing, results guessing, winning possibilities and strategic insights
+          on upcoming cricket matches.
+        </p>
+      </div>
+
+      <p className="text-center mb-8 text-lg">
+        Reach out to us through any of the platforms below and we’ll get back to you as soon as possible.
+      </p>
+
       <h3 className="text-2xl md:text-3xl font-semibold text-center mb-8">Get in touch</h3>
 
       {/* Contact Icons Grid */}
@@ -44,7 +72,7 @@ const ContactUs = () => {
           className="w-100 md:w-1/4"
         />
       </div>
-    </>
+    </div>
   );
 };
 
