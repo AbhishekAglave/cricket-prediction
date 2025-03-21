@@ -4,8 +4,8 @@ import { ChevronRightIcon } from '@heroicons/react/24/solid';
 
 const sliderImages = [
   {
-    src: '/images/slider/ipl.avif',
-    alt: 'IPL Cricket Match'
+    src: '/images/slider/cricket-illustration.jpg',
+    alt: 'Cricket'
   }
 ];
 
