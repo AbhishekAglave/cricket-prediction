@@ -28,7 +28,7 @@ export default function Home() {
 
       <div className="flex justify-center">
         <Link href={'/contact-us'} className="mb-4 py-2 px-4 gradient-button">
-          <span>Connect With Us</span>
+          <span>Chat With Us</span>
           <span className="ml-1 animate-wiggle-horizontal">
             <ChevronRightIcon className="h-[24px] w-[24px]" />
           </span>
@@ -60,7 +60,7 @@ export default function Home() {
       <h3 className="text-2xl md:text-3xl font-semibold text-center mb-4">Get in touch</h3>
       <div className="flex justify-center">
         <Link href={'/contact-us'} className="mb-4 py-2 px-4 gradient-button">
-          <span>Connect With Us</span>
+          <span>Chat With Us</span>
           <span className="ml-1 animate-wiggle-horizontal">
             <ChevronRightIcon className="h-[24px] w-[24px]" />
           </span>
