@@ -15,15 +15,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Cricket Prediction By Expert',
+  title: 'Cricket Match & Toss Forecasts with Winning Possibilities by Experts',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-32x32.png',
     apple: '/apple-touch-icon.png'
   },
-  description: "Get today's match predictions on the go. Expert insights for match predictions and betting strategies.",
+  description:
+    'Get expert insights on cricket matches and toss winning possibilities. Explore team performance reviews, player form analysis, and match-winning chances with detailed forecasts and updates.',
   keywords:
-    'cricket prediction, cricket guessing, IPL match prediction, today match prediction, expert cricket tips, cricket betting tips, IPL betting strategy, cricket analysis, match winner prediction, cricket toss prediction, live cricket updates, fantasy cricket tips, IPL fantasy prediction, Indian team prediction, T20 prediction, cricket expert advice, cricket score prediction, cricket match analysis, cricket astrology prediction, IPL expert opinion, free cricket prediction tips, accurate cricket guessing tips, IPL cricket guessing guru, today IPL match prediction, who will win today match, free toss prediction today, 100% sure cricket prediction, best cricket betting tips, free fantasy cricket team'
+    'cricket match forecasts, toss winning possibilities, cricket winning chances, IPL match analysis, today match preview, expert cricket opinions, team performance review, IPL strategy guide, cricket news updates, match forecast, fantasy cricket suggestions, IPL fan discussions, Indian team updates, T20 match possibilities, expert cricket analysis, live cricket coverage, cricket fan community, cricket score updates, match highlights, IPL team opinions, cricket chances and forecasts, accurate cricket analysis, cricket game discussions, today IPL match insights, team performance insights, toss analysis, cricket match probabilities, fantasy cricket strategies'
 };
 
 export const viewport: Viewport = {
