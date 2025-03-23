@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="GTM-MPJ6JFP8" />
+      <GoogleTagManager gtmId={process.env.GMT_ID!} />
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased transition-colors duration-300`}
       >
