@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 
 export default function WelcomeForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const callbackUrl = searchParams.get('callbackUrl') || '/contact-us';
 
   const initialFormState: TLoginFormState = {
     success: false,
