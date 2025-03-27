@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Cricket Match & Toss Forecasts with Winning Possibilities by Experts',
+  title: 'Cricket Match & Toss Winning Possibilities by Experts',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-32x32.png',
